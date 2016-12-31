@@ -9,7 +9,7 @@ import mis
 
 urlpatterns = [
     # Examples:
-    url(r'^$', 'mis.views.home'),
+    url(r'^$', mis.views.home),
     # url(r'^blog/', include('blog.urls')),
     url(r"^admin/(?P<app>\w+)/(?P<model>\w+)/(?P<object_id>\d+)/start", workflow.views.start),
     url(r"^admin/(?P<app>\w+)/(?P<model>\w+)/(?P<object_id>\d+)/approve/(?P<operation>\d+)", workflow.views.approve),
