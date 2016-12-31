@@ -1,7 +1,7 @@
 from django.conf.urls import include, url, static
 from django.contrib import admin
 from mis import settings
-import workflow
+import workflow.views
 import invent.urls
 import basedata.urls
 import selfhelp.urls
