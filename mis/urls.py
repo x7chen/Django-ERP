@@ -5,7 +5,7 @@ import workflow
 import invent.urls
 import basedata.urls
 import selfhelp.urls
-import mis
+import mis.views
 
 urlpatterns = [
     # Examples:
