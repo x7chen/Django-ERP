@@ -26,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -81,7 +80,6 @@ TEMPLATE_THEME = 'default'
 
 WSGI_APPLICATION = 'mis.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -94,7 +92,6 @@ DATABASES = {
         'PASSWORD': 'intech',
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -111,17 +108,16 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
-    ('css',os.path.join(STATIC_ROOT,'css')),
-    ('js',os.path.join(STATIC_ROOT,'js')),
-    ('img',os.path.join(STATIC_ROOT,'img')),
+    ('css', os.path.join(STATIC_ROOT, 'css')),
+    ('js', os.path.join(STATIC_ROOT, 'js')),
+    ('img', os.path.join(STATIC_ROOT, 'img')),
 )
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'upload')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 MEDIA_URL = '/upload/'

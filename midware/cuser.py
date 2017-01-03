@@ -1,6 +1,6 @@
 __author__ = 'zhugl'
 # created at 15-4-21 
-#python import
+# python import
 from threading import local
 from django.contrib import admin
 from django.apps import apps
@@ -23,19 +23,19 @@ _thread_local = local()
 
 
 def getuser():
-    return getattr(_thread_local,'user',None)
+    return getattr(_thread_local, 'user', None)
 
 
 class RequestUser(object):
-
-    def process_request(self,request):
-        django_user = getattr(request,'user',None)
+    def process_request(self, request):
+        django_user = getattr(request, 'user', None)
 
         if django_user is not None:
             _thread_local.user = django_user
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        app_weight = {'selfhelp':1,'purchase':3,'sale':2,'invent':4,'organ':5,'basedata':6,'syscfg':7,'workflow':8}
+        app_weight = {'selfhelp': 1, 'purchase': 3, 'sale': 2, 'invent': 4, 'organ': 5, 'basedata': 6, 'syscfg': 7,
+                      'workflow': 8}
         if view_func.__name__ == 'index':
             app_dict = {}
             for model, model_admin in admin.site._registry.items():
@@ -50,11 +50,12 @@ class RequestUser(object):
                             'name': capfirst(model._meta.verbose_name_plural),
                             'object_name': model._meta.object_name,
                             'perms': perms,
-                            'weight':getattr(model,'index_weight',99)
+                            'weight': getattr(model, 'index_weight', 99)
                         }
                         if perms.get('change', False):
                             try:
-                                model_dict['admin_url'] = reverse('admin:%s_%s_changelist' % info, current_app=admin.site.name)
+                                model_dict['admin_url'] = reverse('admin:%s_%s_changelist' % info,
+                                                                  current_app=admin.site.name)
                             except NoReverseMatch:
                                 pass
                         if perms.get('add', False):
@@ -75,7 +76,7 @@ class RequestUser(object):
                                 ),
                                 'has_module_perms': has_module_perms,
                                 'models': [model_dict],
-                                'weight':app_weight.get(app_label,99)
+                                'weight': app_weight.get(app_label, 99)
                             }
 
             app_list = list(six.itervalues(app_dict))
@@ -89,8 +90,8 @@ class RequestUser(object):
             )
             try:
                 todolist = self.get_my_task(request)
-                context.update(dict(todolist = todolist))
-            except Exception,e:
+                context.update(dict(todolist=todolist))
+            except Exception, e:
                 pass
             # print context
             view_kwargs['extra_context'] = context
@@ -110,12 +111,12 @@ class RequestUser(object):
                         'name': apps.get_app_config(label).verbose_name,
                         'app_label': label,
                         'app_url': reverse(
-                        'admin:app_list',
+                            'admin:app_list',
                             kwargs={'app_label': label},
                             current_app=admin.site.name,
-                            ),
-                        'weight':app_weight.get(label,99),
-                        'is_current':is_current,
+                        ),
+                        'weight': app_weight.get(label, 99),
+                        'is_current': is_current,
                     }
                 if app_label == model._meta.app_label:
                     has_module_perms = model_admin.has_module_permission(request)
@@ -130,11 +131,12 @@ class RequestUser(object):
                             'name': capfirst(model._meta.verbose_name_plural),
                             'object_name': model._meta.object_name,
                             'perms': perms,
-                            'weight':getattr(model,'index_weight',99)
+                            'weight': getattr(model, 'index_weight', 99)
                         }
                         if perms.get('change'):
                             try:
-                                model_dict['admin_url'] = reverse('admin:%s_%s_changelist' % info, current_app=admin.site.name)
+                                model_dict['admin_url'] = reverse('admin:%s_%s_changelist' % info,
+                                                                  current_app=admin.site.name)
                             except NoReverseMatch:
                                 pass
                         if perms.get('add'):
@@ -166,10 +168,10 @@ class RequestUser(object):
             )
             view_kwargs['extra_context'] = context
 
-    def get_my_task(self,request):
+    def get_my_task(self, request):
         from workflow.models import TodoList
         if request and request.user:
-            query = TodoList.objects.filter(user=request.user,status=0)
+            query = TodoList.objects.filter(user=request.user, status=0)
             if query.count() == 0:
                 return None
             else:
